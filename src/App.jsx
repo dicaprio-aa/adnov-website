@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Services from "./components/Services";
-import Portfolio from "./components/Portfolio";
+import OurClientsWork from "./components/OurClientsWork";
 import WhyChooseUs from "./components/WhyChooseUs";
 import Team from "./components/Team";
 import Testimonials from "./components/Testimonials";
@@ -68,8 +68,8 @@ export default function App() {
           }
         />
 
-        {/* D. Portfolio */}
-        <Portfolio
+        {/* D. Our Clients & Our Work */}
+        <OurClientsWork
           onStartProject={(category) =>
             scrollToContact(category || "")
           }
