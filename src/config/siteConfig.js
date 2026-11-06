@@ -57,12 +57,19 @@ export const siteConfig = {
 
   // Client / Partner Brands for Hero Logo Strip
   clientPartners: [
-    "VANGUARD TECH",
-    "AURA MOTORS",
-    "NEXUS GLOBAL",
-    "KRYPTON PAY",
-    "HORIZON MEDIA",
-    "SYNTHETIX LABS",
+    "PRABHA BAKERS",
+    "GANDHIBHAVAN",
+    "AARYAS HOTEL",
+    "DEORA HUB",
+    "VOLGA",
+    "PRANAH DENTAL CLINIC",
+    "VANYA HOLIDAY RESORT",
+    "CAZORA",
+    "THENMALA ECO RESORT",
+    "G TECH",
+    "CAKE WORLD",
+    "SFC FRIED CHICKEN",
+    "PEARL FAMILY SALON",
   ],
 
   // Brand Colors Reference (Sky-Cyan + Lime Green + White Aesthetic)

@@ -214,10 +214,18 @@ export default function Hero({ onExploreServices, onWorkTogether }) {
         <div className="partners-container">
           <span className="partners-label">TRUSTED BY GLOBAL INNOVATORS &amp; VISIONARY BRANDS</span>
           <div className="partners-marquee-row">
-            {siteConfig.clientPartners.concat(siteConfig.clientPartners).map((partner, idx) => (
-              <div key={idx} className="partner-logo-item">
-                <span className="partner-dot">✦</span>
-                <span className="partner-name">{partner}</span>
+            {[0, 1].map((copyIndex) => (
+              <div
+                className="partners-marquee-group"
+                key={copyIndex}
+                aria-hidden={copyIndex === 1 ? "true" : undefined}
+              >
+                {siteConfig.clientPartners.map((partner) => (
+                  <div key={`${copyIndex}-${partner}`} className="partner-logo-item">
+                    <span className="partner-dot" aria-hidden="true">✦</span>
+                    <span className="partner-name">{partner}</span>
+                  </div>
+                ))}
               </div>
             ))}
           </div>

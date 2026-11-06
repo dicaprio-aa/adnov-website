@@ -929,9 +929,16 @@
 .partners-marquee-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  width: max-content;
+  animation: partners-marquee 42s linear infinite;
+}
+
+.partners-marquee-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
   gap: 36px;
-  flex-wrap: wrap;
+  padding-right: 36px;
 }
 
 .partner-logo-item {
@@ -953,6 +960,19 @@
 .partner-dot {
   color: #4a2278;
   font-size: 14px;
+}
+
+@keyframes partners-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.client-partners-strip {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners-marquee-row { animation: none !important; }
 }
 
 /* --------------------------------------------------------------------------
