@@ -68,61 +68,51 @@ serve(async (req) => {
       );
     }
 
-    // 1. Customer Acknowledgement Email HTML (Dark purple branded aesthetic)
+    // 1. Premium customer acknowledgement email.
     const customerHtml = `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
-        <style>
-          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #08070d; color: #f4f2f9; margin: 0; padding: 40px 15px; }
-          .container { max-width: 580px; margin: 0 auto; background-color: #130d22; border: 1px solid #3b1d60; border-radius: 14px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-          .logo-text { font-size: 26px; font-weight: 800; letter-spacing: -1px; color: #ffffff; margin-bottom: 4px; }
-          .logo-text span { color: #c084fc; }
-          .tagline { font-size: 11px; letter-spacing: 2px; color: #a9a2b8; text-transform: uppercase; margin-bottom: 28px; }
-          .divider { height: 1px; background: #2d184a; margin: 24px 0; }
-          h2 { font-size: 20px; color: #ffffff; margin-top: 0; }
-          p { font-size: 14.5px; line-height: 1.7; color: #bcb5c9; }
-          .recap-box { background-color: #0b0714; border: 1px solid #4a2179; border-radius: 8px; padding: 18px; margin: 22px 0; }
-          .recap-item { margin-bottom: 8px; font-size: 13.5px; }
-          .recap-item strong { color: #e9d5ff; }
-          .footer { font-size: 12px; color: #7f788e; text-align: center; margin-top: 30px; }
-        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Thank you for contacting ADNOV</title>
       </head>
-      <body>
-        <div class="container">
-          <div class="logo-text">AD<span>NOV</span></div>
-          <div class="tagline">Where Innovation Meets Solutions.</div>
-          
-          <h2>Thank You for Contacting ADNOV!</h2>
-          
-          <p>Hello <strong>${payload.full_name}</strong>,</p>
-          
-          <p>Thank you for reaching out to <strong>ADNOV</strong>.</p>
-          
-          <p>We have successfully received your enquiry regarding <strong>${payload.service}</strong>.</p>
-          
-          <p>Our creative directors and production team will review your project brief and get back to you as soon as possible via your preferred contact method (<strong>${payload.contact_method}</strong>).</p>
-          
-          <div class="recap-box">
-            <div class="recap-item"><strong>Service Requested:</strong> ${payload.service}</div>
-            ${payload.budget ? `<div class="recap-item"><strong>Estimated Budget:</strong> ${payload.budget}</div>` : ""}
-            <div class="recap-item"><strong>Your Phone:</strong> ${payload.phone}</div>
-            <div class="recap-item"><strong>Message Summary:</strong><br>${payload.message}</div>
-          </div>
-          
-          <p>We appreciate your interest in ADNOV and look forward to collaborating.</p>
-          
-          <div class="divider"></div>
-          
-          <p style="margin-bottom: 4px;"><strong>Best Regards,</strong></p>
-          <p style="color: #c084fc; font-weight: 700; margin: 0;">Team ADNOV</p>
-          <p style="font-size: 12px; color: #9c95ab; margin: 2px 0 0;">Where Innovation Meets Solutions.</p>
-          
-          <div class="footer">
-            © ${new Date().getFullYear()} ADNOV Creative Media & Digital Solutions.<br>All rights reserved.
-          </div>
-        </div>
+      <body style="margin:0; padding:0; background:#08070d; font-family:Arial, Helvetica, sans-serif;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#08070d;">
+          <tr><td align="center" style="padding:32px 12px;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px; overflow:hidden; background:#120d20; border:1px solid #352052; border-radius:12px;">
+              <tr><td style="padding:34px 38px 28px; background:linear-gradient(135deg,#2c1450,#11162b); border-bottom:1px solid #4a2179;">
+                <div style="color:#fff; font-size:30px; font-weight:800; letter-spacing:-1px;">AD<span style="color:#55c3ff;">NOV</span></div>
+                <div style="margin-top:6px; color:#bdb4cc; font-size:10px; letter-spacing:2px; text-transform:uppercase;">Where Innovation Meets Solutions.</div>
+              </tr>
+              <tr><td style="padding:36px 38px 18px;">
+                <div style="display:inline-block; margin-bottom:18px; padding:7px 11px; border:1px solid #8c63c8; border-radius:999px; color:#d7c4f7; font-size:10px; font-weight:bold; letter-spacing:1px;">ENQUIRY RECEIVED</div>
+                <h1 style="margin:0 0 14px; color:#fff; font-size:28px; line-height:1.2;">Thank you, ${payload.full_name}</h1>
+                <p style="margin:0 0 16px; color:#c3bccd; font-size:15px; line-height:1.75;">We have received your enquiry and appreciate you trusting ADNOV with your project. Our team will review your requirements and respond through your preferred contact method.</p>
+              </td></tr>
+              <tr><td style="padding:0 38px 28px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#0b0814; border:1px solid #3b2557; border-radius:8px;">
+                  <tr><td style="padding:18px; color:#e8e2ef; font-size:14px; line-height:1.8;">
+                    <strong style="color:#d8b4fe;">Service:</strong> ${payload.service}<br>
+                    ${payload.budget ? `<strong style="color:#d8b4fe;">Estimated budget:</strong> ${payload.budget}<br>` : ""}
+                    <strong style="color:#d8b4fe;">Preferred contact:</strong> ${payload.contact_method}<br>
+                    <strong style="color:#d8b4fe;">Your message:</strong><br>${payload.message.replace(/\n/g, "<br>")}
+                  </td></tr>
+                </table>
+              </td></tr>
+              <tr><td style="padding:0 38px 30px;">
+                <p style="margin:0 0 10px; color:#fff; font-size:14px; font-weight:bold;">Need to reach us?</p>
+                <a href="mailto:adnovinnovations@gmail.com" style="color:#55c3ff; text-decoration:none;">adnovinnovations@gmail.com</a><br>
+                <a href="tel:+918137803065" style="color:#55c3ff; text-decoration:none;">+91 81378 03065</a>&nbsp;&nbsp;
+                <a href="tel:+919744754648" style="color:#55c3ff; text-decoration:none;">+91 97447 54648</a>
+              </td></tr>
+              <tr><td style="padding:24px 38px; background:#0d0916; border-top:1px solid #281b3a; text-align:center; color:#857f91; font-size:11px; line-height:1.7;">
+                Best regards, Team ADNOV<br>
+                © ${new Date().getFullYear()} ADNOV Creative Media &amp; Digital Solutions.
+              </td></tr>
+            </table>
+          </td></tr>
+        </table>
       </body>
       </html>
     `;
@@ -172,7 +162,11 @@ serve(async (req) => {
           Authorization: `Bearer ${RESEND_API_KEY}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ from: FROM_EMAIL, ...email }),
+        body: JSON.stringify({
+          from: FROM_EMAIL,
+          ...email,
+          ...(email.to[0] === payload.email ? { reply_to: "adnovinnovations@gmail.com" } : {}),
+        }),
       });
 
       const result = await response.json();

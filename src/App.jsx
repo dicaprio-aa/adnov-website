@@ -13,10 +13,15 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 import WhatsAppButton from "./components/WhatsAppButton";
+import AdminDashboard from "./components/AdminDashboard";
 import "./App.css";
 
 export default function App() {
   const [selectedServiceForEnquiry, setSelectedServiceForEnquiry] = useState("");
+
+  if (window.location.pathname === "/admin" || window.location.pathname.startsWith("/admin/")) {
+    return <AdminDashboard />;
+  }
 
   const scrollToContact = (serviceName = "") => {
     if (serviceName) {
