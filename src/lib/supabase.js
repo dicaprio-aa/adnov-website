@@ -70,7 +70,7 @@ export async function submitEnquiry(enquiryData) {
         "Content-Type": "application/json",
         apikey: SUPABASE_ANON_KEY,
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        Prefer: "return=representation",
+        Prefer: "return=minimal",
       },
       body: JSON.stringify(payload),
     });
@@ -80,8 +80,7 @@ export async function submitEnquiry(enquiryData) {
       throw new Error(`Supabase insert failed: ${dbResponse.status} ${errText}`);
     }
 
-    const insertedRows = await dbResponse.json();
-    const insertedRecord = insertedRows[0] || payload;
+    const insertedRecord = payload;
 
     // 2. Trigger Supabase Edge Function for automated email notification & acknowledgement
     try {

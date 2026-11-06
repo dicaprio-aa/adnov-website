@@ -29,7 +29,6 @@ ALTER TABLE public.enquiries ENABLE ROW LEVEL SECURITY;
 
 -- 4. Grants: public visitors only need INSERT permission. Table privileges are separate from RLS policies.
 GRANT INSERT ON TABLE public.enquiries TO anon;
-GRANT USAGE, SELECT ON SEQUENCE IF EXISTS public.enquiries_id_seq TO anon;
 
 -- 5. Policy: Allow anonymous public visitors to INSERT their enquiry
 DROP POLICY IF EXISTS "Allow anonymous visitor enquiry submissions" ON public.enquiries;
