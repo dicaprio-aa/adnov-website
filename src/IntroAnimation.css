@@ -1,0 +1,134 @@
+body.adnov-intro-active { overflow: hidden; }
+
+.adnov-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(80, 110, 180, .18), transparent 29%),
+    radial-gradient(circle at 50% 100%, rgba(87, 36, 122, .26), transparent 38%),
+    #08070d;
+  perspective: 1100px;
+  transition: opacity .65s cubic-bezier(.16, 1, .3, 1), transform .65s cubic-bezier(.16, 1, .3, 1);
+}
+
+.adnov-intro--leaving {
+  opacity: 0;
+  transform: scale(1.025);
+  pointer-events: none;
+}
+
+.adnov-intro__atmosphere {
+  position: absolute;
+  inset: -18%;
+  opacity: .7;
+  background:
+    linear-gradient(115deg, transparent 28%, rgba(90, 82, 178, .08) 46%, transparent 64%),
+    repeating-linear-gradient(90deg, transparent 0 68px, rgba(128, 140, 215, .018) 69px, transparent 70px);
+  transform: rotateX(68deg) translateY(38%);
+  transform-origin: center bottom;
+  animation: intro-depth 5s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.adnov-intro__beam {
+  position: absolute;
+  width: 38%;
+  height: 130%;
+  background: linear-gradient(90deg, transparent, rgba(143, 195, 255, .12), transparent);
+  filter: blur(18px);
+  transform: translateX(-170%) skewX(-18deg);
+  animation: intro-beam 1.4s 1.05s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+
+.adnov-intro__wordmark {
+  position: relative;
+  width: min(760px, 82vw);
+  height: clamp(100px, 16vw, 190px);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(2px, .5vw, 7px);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 32px 24px rgba(0, 0, 0, .68));
+}
+
+.adnov-intro__letter {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  background-image: url('/adnov.png');
+  background-repeat: no-repeat;
+  background-size: 500% 100%;
+  background-position: calc(var(--intro-index) * 25%) center;
+  filter: saturate(1.12) contrast(1.05);
+  transform-origin: 50% 78%;
+  transform: translate3d(0, 60px, -220px) rotateX(-68deg) rotateY(calc((var(--intro-index) - 2) * 8deg));
+  opacity: 0;
+  animation: intro-letter 1.1s cubic-bezier(.16, 1, .3, 1) forwards;
+  animation-delay: calc(180ms + var(--intro-index) * 170ms);
+}
+
+.adnov-intro__letter::before {
+  content: '';
+  position: absolute;
+  inset: 5% 3%;
+  z-index: -1;
+  box-shadow:
+    2px 2px 0 #4c2a75,
+    4px 4px 0 #3d306f,
+    7px 7px 0 #2f356a,
+    10px 10px 0 rgba(20, 18, 48, .9);
+}
+
+.adnov-intro__letter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,.48) 48%, transparent 68%);
+  mix-blend-mode: screen;
+  transform: translateX(-135%);
+  animation: intro-gloss 1.1s cubic-bezier(.16, 1, .3, 1) forwards;
+  animation-delay: calc(680ms + var(--intro-index) * 170ms);
+}
+
+.adnov-intro__tagline {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + min(130px, 18vw));
+  transform: translate(-50%, 18px);
+  color: #a9a9c7;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(9px, 1vw, 12px);
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  animation: intro-tagline 700ms 2.05s ease forwards;
+}
+
+@keyframes intro-letter {
+  0% { opacity: 0; transform: translate3d(0, 60px, -220px) rotateX(-68deg) rotateY(calc((var(--intro-index) - 2) * 8deg)); filter: saturate(.4) blur(6px); }
+  68% { opacity: 1; filter: saturate(1.12) blur(0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); filter: saturate(1.12) contrast(1.05); }
+}
+
+@keyframes intro-gloss { to { transform: translateX(135%); } }
+@keyframes intro-beam { to { transform: translateX(270%) skewX(-18deg); } }
+@keyframes intro-depth { from { transform: rotateX(68deg) translateY(44%); } to { transform: rotateX(68deg) translateY(38%); } }
+@keyframes intro-tagline { to { opacity: .82; transform: translate(-50%, 0); } }
+
+@media (max-width: 640px) {
+  .adnov-intro__wordmark { width: 88vw; height: clamp(76px, 24vw, 112px); gap: 2px; }
+  .adnov-intro__tagline { top: calc(50% + 80px); letter-spacing: 3px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adnov-intro, .adnov-intro__letter, .adnov-intro__letter::after, .adnov-intro__tagline, .adnov-intro__beam, .adnov-intro__atmosphere { animation: none !important; transition-duration: .01ms !important; }
+  .adnov-intro__letter { opacity: 1; transform: none; }
+  .adnov-intro__tagline { opacity: .82; transform: translate(-50%, 0); }
+}
