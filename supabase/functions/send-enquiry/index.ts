@@ -10,6 +10,9 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const NOTIFY_EMAIL = "adnovinnovations@gmail.com";
+const FROM_EMAIL = "ADNOV <no-reply@adnov.in>";
+
 interface EnquiryPayload {
   full_name: string;
   email: string;
@@ -31,9 +34,25 @@ serve(async (req) => {
   try {
     const payload: EnquiryPayload = await req.json();
 
+    const requiredText = (value: unknown) =>
+      typeof value === "string" && value.trim().length > 0;
+
+    if (
+      !requiredText(payload.full_name) ||
+      !requiredText(payload.email) ||
+      !requiredText(payload.phone) ||
+      !requiredText(payload.service) ||
+      !requiredText(payload.contact_method) ||
+      !requiredText(payload.message) ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)
+    ) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Invalid enquiry payload" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
+    }
+
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-    const NOTIFY_EMAIL = Deno.env.get("OFFICIAL_NOTIFICATION_EMAIL") || "hello@adnovcreative.com";
-    const FROM_EMAIL = Deno.env.get("FROM_EMAIL") || "ADNOV Agency <notifications@adnovcreative.com>";
 
     if (!RESEND_API_KEY) {
       console.warn("RESEND_API_KEY is not configured in Supabase Secrets.");
@@ -142,38 +161,39 @@ serve(async (req) => {
       </html>
     `;
 
-    // Send Customer Acknowledgement Email
-    const customerEmailRes = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: [payload.email],
-        subject: "Thank You for Contacting ADNOV!",
-        html: customerHtml,
-      }),
+    const sendResendEmail = async (email: {
+      to: string[];
+      subject: string;
+      html: string;
+    }) => {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ from: FROM_EMAIL, ...email }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || result.error || `Resend request failed with status ${response.status}`);
+      }
+
+      return result;
+    };
+
+    const customerEmailResult = await sendResendEmail({
+      to: [payload.email],
+      subject: "Thank You for Contacting ADNOV!",
+      html: customerHtml,
     });
 
-    // Send Internal Notification Email
-    const adminEmailRes = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: [NOTIFY_EMAIL],
-        subject: `[New Enquiry] ${payload.service} - ${payload.full_name}`,
-        html: adminHtml,
-      }),
+    const adminEmailResult = await sendResendEmail({
+      to: [NOTIFY_EMAIL],
+      subject: `[New Enquiry] ${payload.service} - ${payload.full_name}`,
+      html: adminHtml,
     });
-
-    const customerEmailResult = await customerEmailRes.json();
-    const adminEmailResult = await adminEmailRes.json();
 
     return new Response(
       JSON.stringify({

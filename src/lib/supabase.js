@@ -79,7 +79,7 @@ export async function submitEnquiry(enquiryData) {
 
     // 2. Trigger Supabase Edge Function for automated email notification & acknowledgement
     try {
-      await fetch(`${SUPABASE_URL}/functions/v1/send-enquiry`, {
+      const emailResponse = await fetch(`${SUPABASE_URL}/functions/v1/send-enquiry`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,6 +88,11 @@ export async function submitEnquiry(enquiryData) {
         },
         body: JSON.stringify(insertedRecord),
       });
+
+      if (!emailResponse.ok) {
+        const emailError = await emailResponse.json().catch(() => null);
+        console.warn("Email delivery note:", emailError?.error || emailResponse.statusText);
+      }
     } catch (edgeErr) {
       console.warn("Edge function trigger note:", edgeErr.message);
       // Even if edge function has a delay, the database record was safely preserved
