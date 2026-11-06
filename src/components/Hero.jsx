@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { ArrowUpRight, Play, Sparkles, Radio, Code2, Palette, ShieldCheck, ChevronDown } from "lucide-react";
 import { siteConfig } from "../config/siteConfig";
+import Adnov3DReveal from "./Adnov3DReveal";
 
 export default function Hero({ onExploreServices, onWorkTogether }) {
   const [activeCardHover, setActiveCardHover] = useState(null);
@@ -46,6 +47,8 @@ export default function Hero({ onExploreServices, onWorkTogether }) {
           <span className="pill-divider">•</span>
           <span className="pill-highlight">WHERE INNOVATION MEETS SOLUTIONS</span>
         </div>
+
+        <Adnov3DReveal />
 
         {/* Large Centered Headline */}
         <h1 className="hero-centered-title">
