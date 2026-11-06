@@ -137,6 +137,17 @@ export const clientProjects = [
     services: ["Poster Designing", "Social Media Creatives", "Video Editing / Reels", "Videography", "Social Media Management", "Branding & Marketing"],
     projects: [],
   },
+  {
+    id: "client-deora-hub",
+    name: "DEORA HUB",
+    logo: "/images/clients/deora-hub.png",
+    category: "Furniture Shop",
+    introduction: "Deora Hub is a furniture store focused on helping customers find furniture for their homes and living spaces. It aims to make furniture shopping convenient by offering options suited to different interior needs and preferences. The business focuses on combining functionality and style in everyday spaces. Its goal is to help customers create comfortable and well-organized environments.",
+    businessServices: "Deora Hub focuses on furniture sales and furnishing solutions for different spaces. Customers can enquire about available furniture options for their home and interior needs. The store aims to help customers explore suitable furniture choices based on their preferences. Contact Deora Hub for details about available products and orders.",
+    accent: "#38bdf8",
+    services: ["Poster Designing", "Social Media Creatives", "Video Editing / Reels", "Videography", "Social Media Management", "Branding & Marketing"],
+    projects: [],
+  },
 ];
 
 // Future clients without uploaded assets can be added here.

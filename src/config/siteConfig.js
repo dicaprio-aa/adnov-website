@@ -14,7 +14,7 @@ export const siteConfig = {
     supportEmail: "support@adnovcreative.com",
     phone: "+1 (555) 234-5678",
     phoneDisplay: "+1 (555) ADNOV-01",
-    whatsappNumber: "15552345678", // International format without + or spaces
+    whatsappNumber: "918137803065", // International format without + or spaces
     whatsappDefaultMessage:
       "Hello Team ADNOV! I am interested in discussing a creative project.",
   },
@@ -40,7 +40,7 @@ export const siteConfig = {
   social: {
     instagram: "https://www.instagram.com/adnov.in/",
     instagramHandle: "@adnov.in",
-    whatsapp: "https://wa.me/15552345678",
+    whatsapp: "https://wa.me/918137803065",
     linkedin: "https://linkedin.com/company/adnovcreative",
     youtube: "https://youtube.com/@adnovcreative",
     x: "https://x.com/adnovcreative",
