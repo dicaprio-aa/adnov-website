@@ -19,8 +19,16 @@ export const isSupabaseConfigured = () => {
  * If credentials are not configured, saves to localStorage demo storage and returns simulated success.
  */
 export async function submitEnquiry(enquiryData) {
+  // Keep the component payload readable while matching the existing database and Edge Function contract.
   const payload = {
-    ...enquiryData,
+    full_name: enquiryData.fullName,
+    email: enquiryData.email,
+    phone: enquiryData.phone,
+    company: enquiryData.company || null,
+    service: enquiryData.service,
+    budget: enquiryData.budget || null,
+    contact_method: enquiryData.contactMethod,
+    message: enquiryData.message,
     created_at: new Date().toISOString(),
     status: "new",
     source: "website_enquiry_form",

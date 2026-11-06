@@ -2592,7 +2592,23 @@
 .footer-logo-modern {
   display: inline-flex;
   flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 16px;
+}
+
+.footer-adnov-logo-modern {
+  width: min(180px, 100%);
+  height: auto;
+  display: block;
+}
+
+.footer-logo-tagline-modern {
+  margin-top: 10px;
+  color: #94a3b8;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
 .footer-desc-modern {
@@ -2686,6 +2702,16 @@
 
 .f-item-modern a:hover {
   color: #ffffff;
+}
+
+.footer-phone-links-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.footer-phone-links-modern a {
+  white-space: nowrap;
 }
 
 .footer-tagline-badge-modern {
@@ -3504,5 +3530,482 @@ border: 1px solid var(--border-light);
 
   .adnov-map-heading h3 {
     font-size: 24px;
+  }
+}
+
+/* ADNOV Meet Our Team redesign - scoped to the team section only */
+.team-section-light {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fcff 58%, #ffffff 100%);
+}
+
+.team-section-light .section-header-centered {
+  margin-bottom: 42px;
+}
+
+.team-section-light .section-headline-light {
+  max-width: 760px;
+}
+
+.team-grid-light {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.team-card-light {
+  height: 100%;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.team-avatar-wrapper-light {
+  aspect-ratio: 1 / 1.12;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 26px;
+  border-bottom: 1px solid var(--border-light);
+  background:
+    linear-gradient(145deg, rgba(224, 242, 254, 0.95), rgba(255, 255, 255, 0.98) 72%),
+    #ffffff;
+}
+
+.team-avatar-light {
+  width: 68%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--adnov-purple), var(--sky-primary));
+  box-shadow: 0 18px 38px -18px rgba(74, 34, 120, 0.58);
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 3vw, 46px);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.team-content-light {
+  flex: 1;
+  display: flex;
+  min-height: 150px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 18px;
+}
+
+.team-name-light {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.team-role-lime {
+  min-height: 38px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  line-height: 1.45;
+}
+
+.team-socials-light:empty {
+  display: none;
+}
+
+.team-bottom-banner-light {
+  border-radius: 8px;
+}
+
+@media (max-width: 1080px) {
+  .team-grid-light {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .team-grid-light {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .team-avatar-wrapper-light {
+    padding: 18px;
+  }
+
+  .team-content-light {
+    padding: 18px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-grid-light {
+    grid-template-columns: 1fr;
+  }
+
+  .team-avatar-wrapper-light {
+    aspect-ratio: 1 / 0.9;
+  }
+
+  .team-avatar-light {
+    width: 52%;
+  }
+}
+
+/* ADNOV Contact redesign - scoped to the contact section only */
+.contact-section-light {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fcff 58%, #ffffff 100%);
+}
+
+.contact-section-light::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(52vw, 680px);
+  height: 420px;
+  pointer-events: none;
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), rgba(56, 189, 248, 0) 68%);
+}
+
+.contact-container-light {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.contact-heading-light {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.contact-heading-light h2 {
+  margin-bottom: 18px;
+  font-family: var(--font-heading);
+  font-size: clamp(38px, 5vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -2px;
+  color: var(--text-heading);
+}
+
+.contact-heading-light h2 span {
+  color: var(--sky-primary);
+}
+
+.contact-heading-light > p {
+  max-width: 610px;
+  margin: 0 auto;
+  color: var(--text-body);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.contact-content-light {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.contact-info-light,
+.contact-form-wrapper-light {
+  height: 100%;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 24px 60px -32px rgba(15, 23, 42, 0.24);
+}
+
+.contact-info-light {
+  padding: 32px;
+  border-radius: 8px;
+}
+
+.contact-info-title-light {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: var(--sky-deep);
+}
+
+.contact-info-title-light h3,
+.contact-form-heading-light h3 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--text-heading);
+}
+
+.contact-info-description-light {
+  margin-bottom: 24px;
+  color: var(--text-body);
+  line-height: 1.7;
+}
+
+.contact-cards-stack-light {
+  gap: 14px;
+}
+
+.c-card-light {
+  padding: 18px;
+  border-radius: 8px;
+  background: #ffffff;
+  border-color: #dbeaf3;
+  box-shadow: 0 12px 28px -24px rgba(15, 23, 42, 0.32);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.c-card-light:hover {
+  transform: translateY(-2px);
+  border-color: var(--sky-light);
+}
+
+.c-icon-box-light {
+  border-radius: 8px;
+  color: #ffffff;
+  border: 0;
+  background: linear-gradient(135deg, var(--sky-primary), var(--adnov-blue));
+}
+
+.c-val-light:hover {
+  color: var(--sky-deep);
+}
+
+.contact-note-light {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+  color: var(--adnov-purple);
+}
+
+.contact-note-light p {
+  color: var(--text-body);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.contact-form-wrapper-light {
+  padding: 34px;
+  border-radius: 8px;
+}
+
+.contact-form-heading-light {
+  margin-bottom: 26px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.contact-form-heading-light p {
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+
+.contact-form-light {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+}
+
+.form-row-light {
+  display: contents;
+}
+
+.form-group-light {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.form-group-light:has(textarea),
+.form-group-light:has(select[name="contactMethod"]),
+.contact-error-light,
+.contact-submit-btn-light,
+.form-privacy-light {
+  grid-column: 1 / -1;
+}
+
+.form-group-light label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.form-group-light input,
+.form-group-light select,
+.form-group-light textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--text-heading);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.form-group-light textarea {
+  min-height: 124px;
+  resize: vertical;
+}
+
+.form-group-light input:focus,
+.form-group-light select:focus,
+.form-group-light textarea:focus {
+  border-color: var(--sky-primary);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
+}
+
+.form-group-light input::placeholder,
+.form-group-light textarea::placeholder {
+  color: #94a3b8;
+}
+
+.contact-submit-btn-light {
+  width: 100%;
+  margin-top: 2px;
+}
+
+.contact-error-light {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fff5f5;
+  color: #b91c1c;
+  font-size: 13px;
+}
+
+.form-privacy-light {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-align: center;
+}
+
+.contact-success-light {
+  display: flex;
+  min-height: 430px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--lime-dark);
+}
+
+.contact-success-light h3 {
+  margin-top: 18px;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  color: var(--text-heading);
+}
+
+.contact-success-light p {
+  max-width: 460px;
+  margin: 10px 0 24px;
+  color: var(--text-body);
+}
+
+.contact-section-light .adnov-map-section {
+  max-width: none;
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 24px 60px -32px rgba(15, 23, 42, 0.24);
+}
+
+.contact-section-light .adnov-map-heading {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+}
+
+.contact-section-light .adnov-map-heading .section-pill-light {
+  grid-column: 1 / -1;
+}
+
+.contact-section-light .adnov-map-heading h3 {
+  color: var(--text-heading);
+}
+
+.contact-section-light .adnov-map-heading p {
+  grid-column: 1 / -1;
+  color: var(--text-body);
+}
+
+.contact-section-light .adnov-map-frame {
+  max-width: none;
+  border-radius: 8px;
+}
+
+.contact-section-light .adnov-map-frame iframe {
+  height: 300px;
+}
+
+.contact-section-light .adnov-directions-btn {
+  width: auto;
+}
+
+@media (max-width: 860px) {
+  .contact-content-light {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-container-light {
+    padding: 0 20px;
+  }
+
+  .contact-heading-light {
+    margin-bottom: 34px;
+  }
+
+  .contact-heading-light h2 {
+    font-size: 38px;
+    letter-spacing: -1px;
+  }
+
+  .contact-heading-light > p {
+    font-size: 15px;
+  }
+
+  .contact-info-light,
+  .contact-form-wrapper-light,
+  .contact-section-light .adnov-map-section {
+    padding: 22px;
+  }
+
+  .contact-form-light {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row-light,
+  .form-group-light:has(textarea),
+  .form-group-light:has(select[name="contactMethod"]),
+  .contact-error-light,
+  .contact-submit-btn-light,
+  .form-privacy-light {
+    grid-column: 1;
+  }
+
+  .contact-section-light .adnov-map-frame iframe {
+    height: 220px;
+  }
+
+  .contact-section-light .adnov-directions-btn {
+    width: 100%;
   }
 }

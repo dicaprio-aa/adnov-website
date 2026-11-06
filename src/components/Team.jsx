@@ -1,5 +1,5 @@
 // ADNOV Meet Our Team Section - Clean White & Cyan Theme with Lime Accents
-import { ArrowUpRight, UserCheck } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { teamMembers } from "../data/team";
 import {
   LinkedInIcon,
@@ -32,27 +32,31 @@ export default function Team({ onWorkWithTeam }) {
 
         {/* Team Cards Grid */}
         <div className="team-grid-light">
-          {teamMembers.map((member) => (
+          {teamMembers.map((member) => {
+            const initials = member.name
+              .split(/\s+/)
+              .map((part) => part[0])
+              .join("")
+              .slice(0, 2);
+
+            return (
             <article key={member.id} className="team-card-light">
-              <div className="team-img-wrapper-light">
-                <img
-                  src={member.photo}
-                  alt={member.name}
-                  className="team-photo-light"
-                  loading="lazy"
-                />
-                <span className="team-dept-pill-light">{member.department}</span>
+              <div className="team-avatar-wrapper-light" aria-label={`${member.name} profile placeholder`}>
+                <div className="team-avatar-light">{initials}</div>
               </div>
 
               <div className="team-content-light">
                 <h3 className="team-name-light">{member.name}</h3>
                 <span className="team-role-lime">{member.role}</span>
-                <p className="team-bio-light">{member.bio}</p>
 
-                <div className="team-specialty-strip-light">
-                  <span className="lbl">Specialty:</span>
-                  <span className="val">{member.specialty}</span>
-                </div>
+                {member.bio && <p className="team-bio-light">{member.bio}</p>}
+
+                {member.specialty && (
+                  <div className="team-specialty-strip-light">
+                    <span className="lbl">Specialty:</span>
+                    <span className="val">{member.specialty}</span>
+                  </div>
+                )}
 
                 <div className="team-socials-light">
                   {member.socials.linkedin && (
@@ -102,7 +106,8 @@ export default function Team({ onWorkWithTeam }) {
                 </div>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         {/* Join our roster callout */}

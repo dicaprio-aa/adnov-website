@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Send,
   CheckCircle2,
@@ -47,11 +47,24 @@ const budgets = [
   "Not decided yet",
 ];
 
-export default function Contact() {
+export default function Contact({ preselectedService = "" }) {
   const [formData, setFormData] = useState(initialForm);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("idle");
   const [statusMessage, setStatusMessage] = useState("");
+
+  useEffect(() => {
+    if (!preselectedService) return;
+
+    const timeoutId = window.setTimeout(() => {
+      setFormData((current) => ({
+        ...current,
+        service: preselectedService,
+      }));
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [preselectedService]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

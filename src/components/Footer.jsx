@@ -64,11 +64,12 @@ export default function Footer({ onSelectService }) {
           {/* Col 1: Brand & Bio */}
           <div className="footer-col-modern footer-col-brand-modern">
             <a href="#home" className="footer-logo-modern" onClick={(e) => handleLinkClick(e, "#home")}>
-              <div className="logo-badge-light">
-                <span className="logo-text-light" style={{ color: "#ffffff" }}>AD<span style={{ color: "#38bdf8" }}>NOV</span></span>
-                <div className="logo-lime-dot"></div>
-              </div>
-              <span className="logo-sub-light" style={{ color: "#94a3b8" }}>{siteConfig.tagline}</span>
+              <img
+                src="/adnov.png"
+                alt="ADNOV Innovative Solutions"
+                className="footer-adnov-logo-modern"
+              />
+              <span className="footer-logo-tagline-modern">{siteConfig.tagline}</span>
             </a>
 
             <p className="footer-desc-modern">
@@ -186,19 +187,26 @@ export default function Footer({ onSelectService }) {
             <div className="footer-contacts-stack-modern">
               <div className="f-item-modern">
                 <Mail size={16} className="f-icon-lime" />
-                <a href={`mailto:${siteConfig.contact.officialEmail}`}>
-                  {siteConfig.contact.officialEmail}
+                <a href="mailto:adnovinnovations@gmail.com">
+                  adnovinnovations@gmail.com
                 </a>
               </div>
-              <div className="f-item-modern">
+              <div className="f-item-modern f-item-phone-modern">
                 <Phone size={16} className="f-icon-lime" />
-                <a href={`tel:${siteConfig.contact.phone}`}>
-                  {siteConfig.contact.phoneDisplay}
-                </a>
+                <span className="footer-phone-links-modern">
+                  <a href="tel:+918137803065">+91 81378 03065</a>
+                  <a href="tel:+919744754648">+91 97447 54648</a>
+                </span>
               </div>
               <div className="f-item-modern">
                 <MapPin size={16} className="f-icon-lime" />
-                <span>{siteConfig.location.displayAddress}</span>
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=8.957576891100988,76.83979217501819"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ayoor, Kollam, Kerala
+                </a>
               </div>
             </div>
 
