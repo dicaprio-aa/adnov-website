@@ -30,11 +30,13 @@ export default function IntroAnimation({ onComplete }) {
             className="adnov-intro__letter"
             key={letter}
             style={{ "--intro-index": index, "--intro-letter": `'${letter}'` }}
+            data-letter={letter}
             aria-hidden="true"
-          />
+          >
+            {letter}
+          </span>
         ))}
       </div>
-      <span className="adnov-intro__tagline" aria-hidden="true">Creative Media &amp; Digital Solutions</span>
     </div>
   );
 }
