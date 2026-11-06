@@ -112,9 +112,11 @@ export async function submitEnquiry(enquiryData) {
     };
   } catch (error) {
     console.error("Supabase submission error:", error);
+    const message = error?.message || "Failed to submit enquiry. Please try again.";
     return {
       success: false,
-      error: error.message || "Failed to submit enquiry. Please try again.",
+      error: message,
+      message,
     };
   }
 }

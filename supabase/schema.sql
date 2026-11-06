@@ -27,20 +27,27 @@ CREATE INDEX IF NOT EXISTS idx_enquiries_status ON public.enquiries (status);
 -- 3. Enable Row Level Security (RLS)
 ALTER TABLE public.enquiries ENABLE ROW LEVEL SECURITY;
 
--- 4. Policy: Allow anonymous public visitors to INSERT their enquiry
+-- 4. Grants: public visitors only need INSERT permission. Table privileges are separate from RLS policies.
+GRANT INSERT ON TABLE public.enquiries TO anon;
+GRANT USAGE, SELECT ON SEQUENCE IF EXISTS public.enquiries_id_seq TO anon;
+
+-- 5. Policy: Allow anonymous public visitors to INSERT their enquiry
+DROP POLICY IF EXISTS "Allow anonymous visitor enquiry submissions" ON public.enquiries;
 CREATE POLICY "Allow anonymous visitor enquiry submissions"
 ON public.enquiries
 FOR INSERT
 TO anon
 WITH CHECK (true);
 
--- 5. Policy: Restrict SELECT, UPDATE, DELETE to authenticated administrators only
+-- 6. Policy: Restrict SELECT, UPDATE, DELETE to authenticated administrators only
+DROP POLICY IF EXISTS "Allow authenticated staff to view enquiries" ON public.enquiries;
 CREATE POLICY "Allow authenticated staff to view enquiries"
 ON public.enquiries
 FOR SELECT
 TO authenticated
 USING (true);
 
+DROP POLICY IF EXISTS "Allow authenticated staff to update enquiries" ON public.enquiries;
 CREATE POLICY "Allow authenticated staff to update enquiries"
 ON public.enquiries
 FOR UPDATE
