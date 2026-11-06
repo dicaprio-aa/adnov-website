@@ -38,8 +38,8 @@ export const siteConfig = {
 
   // Social Media Profiles
   social: {
-    instagram: "https://instagram.com/adnovcreative",
-    instagramHandle: "@adnovcreative",
+    instagram: "https://www.instagram.com/adnov.in/",
+    instagramHandle: "@adnov.in",
     whatsapp: "https://wa.me/15552345678",
     linkedin: "https://linkedin.com/company/adnovcreative",
     youtube: "https://youtube.com/@adnovcreative",

@@ -30,8 +30,7 @@ export default function OurClientsWork({ onStartProject }) {
             <span className="headline-cyan-span">Work creates impact.</span>
           </h2>
           <p className="section-lead-light">
-            Explore a demonstration collection of fictional brands and concept case studies.
-            These temporary examples will be replaced with verified ADNOV client work.
+            Explore selected ADNOV clients and their creative work as verified project details become available.
           </p>
         </div>
 
@@ -45,9 +44,11 @@ export default function OurClientsWork({ onStartProject }) {
               onClick={() => openClient(client)}
               aria-label={`View ${client.name} case study placeholder`}
             >
-              <span className="combined-client-logo" aria-hidden="true">{client.monogram}</span>
+              <span className="combined-client-logo" aria-hidden="true">
+                <img src={client.logo} alt="" loading="lazy" />
+              </span>
               <strong>{client.name}</strong>
-              <span className="combined-client-type">Demo brand</span>
+              <span className="combined-client-type">ADNOV Client</span>
               <span className="combined-client-view">View case study <ArrowUpRight size={15} /></span>
             </button>
           ))}
@@ -90,41 +91,89 @@ export default function OurClientsWork({ onStartProject }) {
             </button>
 
             <div className="combined-case-head" style={{ "--client-accent": selectedClient.accent }}>
-              <span className="combined-case-logo">{selectedClient.monogram}</span>
+              <span className="combined-case-logo">
+                <img src={selectedClient.logo} alt={`${selectedClient.name} logo`} />
+              </span>
               <div>
-                <span className="combined-case-label">TEMPORARY DEMO CLIENT</span>
+                <span className="combined-case-label">ADNOV CLIENT</span>
                 <h2 id="combined-case-title">{selectedClient.name}</h2>
               </div>
             </div>
 
             <div className="combined-case-body">
-              <p className="combined-case-intro">{selectedClient.introduction}</p>
-              <div className="combined-case-services">
-                {selectedClient.services.map((service) => <span key={service}>{service}</span>)}
-              </div>
+              {(selectedClient.category || selectedClient.location) && (
+                <div className="combined-client-meta">
+                  {selectedClient.category && <span><small>Category</small>{selectedClient.category}</span>}
+                  {selectedClient.location && <span><small>Location</small>{selectedClient.location}</span>}
+                </div>
+              )}
 
-              <h3>Project preview</h3>
-              <div className="combined-case-projects">
-                {selectedClient.projects.map((project) => (
-                  <article key={project.title} className="combined-case-project">
-                    <div className="combined-case-image-wrap">
-                      <img src={project.image} alt={`Placeholder preview for ${project.title}`} loading="lazy" />
-                      <span>{project.type}</span>
-                    </div>
-                    <div>
-                      <h4>{project.title}</h4>
-                      <p>{project.description}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
+              {selectedClient.introduction && (
+                <section className="combined-client-profile-copy">
+                  <h3>About the Business</h3>
+                  <p>{selectedClient.introduction}</p>
+                </section>
+              )}
+
+              {selectedClient.businessServices && (
+                <section className="combined-client-profile-copy">
+                  <h3>Business Services</h3>
+                  <p>{selectedClient.businessServices}</p>
+                </section>
+              )}
+
+              {selectedClient.services.length > 0 && (
+                <section className="combined-client-adnov-services">
+                  <h3>ADNOV Services</h3>
+                  <div className="combined-case-services">
+                    {selectedClient.services.map((service) => <span key={service}>{service}</span>)}
+                  </div>
+                </section>
+              )}
+
+              {selectedClient.projects.length > 0 ? (
+                <>
+                  <h3>Project preview</h3>
+                  <div className="combined-case-projects">
+                    {selectedClient.projects.map((project) => (
+                      <article key={project.title} className="combined-case-project">
+                        <div className="combined-case-image-wrap">
+                          <img src={project.image} alt={`Placeholder preview for ${project.title}`} loading="lazy" />
+                          <span>{project.type}</span>
+                        </div>
+                        <div>
+                          <h4>{project.title}</h4>
+                          <p>{project.description}</p>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="combined-case-coming-soon">
+                  <span>PROJECT DETAILS COMING SOON</span>
+                  <h3>Verified case study in preparation</h3>
+                  <p>Project details, services and creative work will be added here once they are confirmed.</p>
+                </div>
+              )}
+
+              {selectedClient.instagram && (
+                <a
+                  href={selectedClient.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="combined-case-instagram"
+                >
+                  View Instagram <ArrowUpRight size={17} />
+                </a>
+              )}
 
               <button
                 type="button"
                 className="btn-lime-primary combined-case-cta"
                 onClick={() => {
                   setSelectedClient(null);
-                  if (onStartProject) onStartProject(selectedClient.services[0]);
+                  if (onStartProject) onStartProject(selectedClient.services[0] || "");
                   else document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
