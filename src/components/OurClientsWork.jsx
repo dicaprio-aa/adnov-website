@@ -131,7 +131,7 @@ export default function OurClientsWork({ onStartProject }) {
                 </section>
               )}
 
-              {selectedClient.projects.length > 0 ? (
+              {selectedClient.projects.length > 0 && (
                 <>
                   <h3>Project preview</h3>
                   <div className="combined-case-projects">
@@ -149,12 +149,6 @@ export default function OurClientsWork({ onStartProject }) {
                     ))}
                   </div>
                 </>
-              ) : (
-                <div className="combined-case-coming-soon">
-                  <span>PROJECT DETAILS COMING SOON</span>
-                  <h3>Verified case study in preparation</h3>
-                  <p>Project details, services and creative work will be added here once they are confirmed.</p>
-                </div>
               )}
 
               {selectedClient.instagram && (
