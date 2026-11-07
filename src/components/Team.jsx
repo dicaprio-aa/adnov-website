@@ -1,5 +1,6 @@
 // ADNOV Meet Our Team Section - Clean White & Cyan Theme with Lime Accents
-import { ArrowUpRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, ExternalLink, X } from "lucide-react";
 import { teamMembers } from "../data/team";
 import {
   LinkedInIcon,
@@ -9,6 +10,19 @@ import {
 } from "./SocialIcons";
 
 export default function Team({ onWorkWithTeam }) {
+  const [isAshiqProfileOpen, setIsAshiqProfileOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isAshiqProfileOpen) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setIsAshiqProfileOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [isAshiqProfileOpen]);
+
+  const openAshiqProfile = () => setIsAshiqProfileOpen(true);
+
   return (
     <section className="team-section-light" id="team">
       <div className="section-container">
@@ -40,7 +54,21 @@ export default function Team({ onWorkWithTeam }) {
               .slice(0, 2);
 
             return (
-            <article key={member.id} className="team-card-light">
+            <article
+              key={member.id}
+              className={`team-card-light${member.id === "member-2" ? " team-card-clickable" : ""}`}
+              onClick={member.id === "member-2" ? openAshiqProfile : undefined}
+              onKeyDown={member.id === "member-2" ? (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  openAshiqProfile();
+                }
+              } : undefined}
+              role={member.id === "member-2" ? "button" : undefined}
+              tabIndex={member.id === "member-2" ? 0 : undefined}
+              aria-haspopup={member.id === "member-2" ? "dialog" : undefined}
+              aria-label={member.id === "member-2" ? `View ${member.name}'s profile` : undefined}
+            >
               <div className={`team-avatar-wrapper-light${member.image ? " has-photo" : ""}`}>
                 {member.image ? (
                   <img
@@ -118,6 +146,70 @@ export default function Team({ onWorkWithTeam }) {
             );
           })}
         </div>
+
+        {isAshiqProfileOpen && (
+          <div
+            className="team-profile-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="ashiq-profile-title"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) setIsAshiqProfileOpen(false);
+            }}
+          >
+            <article className="team-profile-modal">
+              <button className="team-profile-close" type="button" onClick={() => setIsAshiqProfileOpen(false)} aria-label="Close Ashiq's profile">
+                <X size={21} />
+              </button>
+              <header className="team-profile-head">
+                <img src="/ashiq.png" alt="Ashiq S" className="team-profile-photo" />
+                <div className="team-profile-heading">
+                  <span className="team-profile-eyebrow">THE MINDS BEHIND ADNOV</span>
+                  <h2 id="ashiq-profile-title">ASHIQ S</h2>
+                  <p>Graphic Designer &amp; Web Developer</p>
+                </div>
+              </header>
+              <div className="team-profile-body">
+                <section className="team-profile-section team-profile-about">
+                  <h3>About</h3>
+                  <p>Ashiq S is a creative designer and web developer with an interest in technology, digital experiences and visual communication. He combines creativity with technical skills to build engaging digital solutions, design impactful graphics and develop modern websites. He is currently pursuing a BTech in Computer Science and Engineering with Data Science at UKF College of Engineering &amp; Technology. He is also actively involved in IEEE student activities and creative projects.</p>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Skills</h3>
+                  <div className="team-profile-skills">
+                    {["Graphic Design", "Web Development", "UI/UX Design", "Frontend Development", "Branding & Visual Communication", "Python", "C Programming", "SQL", "HTML & CSS", "JavaScript & React", "Adobe Photoshop", "Adobe Illustrator", "Canva", "CapCut", "Content Creation", "Video Editing"].map((skill) => <span key={skill}>{skill}</span>)}
+                  </div>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Experience &amp; Activities</h3>
+                  <ul className="team-profile-list">
+                    <li>Graphic Designer &amp; Web Developer at ADNOV</li>
+                    <li>Secretary, IEEE Student Branch, UKFCET</li>
+                    <li>Vice Chair, IEEE IAS Student Branch Chapter, UKFCET</li>
+                    <li>Founder of Nexads Media Solutions</li>
+                    <li>Experience in website development, branding, graphic design and digital content creation.</li>
+                  </ul>
+                </section>
+                <section className="team-profile-section team-profile-education">
+                  <h3>Education</h3>
+                  <strong>BTech Computer Science &amp; Engineering (Data Science)</strong>
+                  <p>UKF College of Engineering &amp; Technology<br />2024–2028</p>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Portfolio</h3>
+                  <a className="team-profile-link" href="https://theweakend.vercel.app" target="_blank" rel="noopener noreferrer">Explore portfolio <ExternalLink size={15} /></a>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Social Links</h3>
+                  <div className="team-profile-socials">
+                    <a href="https://github.com/dicaprio-aa" target="_blank" rel="noopener noreferrer">GitHub <ExternalLink size={15} /></a>
+                    <a href="https://www.linkedin.com/in/ashiq-s-0056a6239/" target="_blank" rel="noopener noreferrer">LinkedIn <ExternalLink size={15} /></a>
+                  </div>
+                </section>
+              </div>
+            </article>
+          </div>
+        )}
 
         {/* Join our roster callout */}
         <div className="team-bottom-banner-light">
