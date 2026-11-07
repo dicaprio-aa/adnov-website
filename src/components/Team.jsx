@@ -150,7 +150,7 @@ export default function Team({ onWorkWithTeam }) {
             className="team-profile-backdrop"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="ashiq-profile-title"
+            aria-labelledby="team-profile-title"
             onMouseDown={(event) => {
               if (event.target === event.currentTarget) setSelectedMember(null);
             }}
@@ -163,8 +163,8 @@ export default function Team({ onWorkWithTeam }) {
                 <img src={selectedMember.image} alt={selectedMember.name} className="team-profile-photo" style={{ objectPosition: selectedMember.imagePosition || "center 20%" }} />
                 <div className="team-profile-heading">
                   <span className="team-profile-eyebrow">THE MINDS BEHIND ADNOV</span>
-                  <h2 id="ashiq-profile-title">{selectedMember.name}</h2>
-                  <p>{selectedMember.role}</p>
+                  <h2 id="team-profile-title">{selectedMember.id === "member-5" ? "Snehith R" : selectedMember.name}</h2>
+                  <p>{selectedMember.id === "member-5" ? "Video Editor" : selectedMember.role}</p>
                 </div>
               </header>
               {selectedMember.id === "member-2" ? <div className="team-profile-body">
@@ -203,6 +203,40 @@ export default function Team({ onWorkWithTeam }) {
                     <a href="https://github.com/dicaprio-aa" target="_blank" rel="noopener noreferrer">GitHub <ExternalLink size={15} /></a>
                     <a href="https://www.linkedin.com/in/ashiq-s-0056a6239/" target="_blank" rel="noopener noreferrer">LinkedIn <ExternalLink size={15} /></a>
                   </div>
+                </section>
+              </div> : selectedMember.id === "member-5" ? <div className="team-profile-body">
+                <section className="team-profile-section team-profile-about">
+                  <h3>About</h3>
+                  <p>Snehith R is a passionate Video Editor with over two years of practical experience in video editing and creative post-production. With a background in B.Sc. Catering and Hotel Administration and a Diploma in Video Editing from Pixel School of Media, he brings creativity and attention to detail to every project.</p>
+                  <p>Specialising in cinematic storytelling, colour grading, wedding films, promotional content and social media videos, he focuses on transforming raw footage into engaging visual experiences. His approach combines creative vision, technical skills and a passion for delivering quality content.</p>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Professional Skills</h3>
+                  <div className="team-profile-skills">{["Cinematic Video Editing", "Colour Grading", "Video Transitions & Effects", "Visual Storytelling", "Social Media Reels Editing", "Sound Design", "Motion Graphics"].map((skill) => <span key={skill}>{skill}</span>)}</div>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Software &amp; Tools</h3>
+                  <div className="team-profile-skills">{["DaVinci Resolve", "Adobe Premiere Pro", "Adobe Photoshop", "Adobe Lightroom", "CapCut"].map((tool) => <span key={tool}>{tool}</span>)}</div>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Work Experience</h3>
+                  <ul className="team-profile-list"><li>2+ years of practical video editing experience.</li><li>Professional video editing and post-production work.</li></ul>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Projects &amp; Creative Work</h3>
+                  <div className="team-profile-skills">{["Wedding Films", "Promotional Videos", "Social Media Reels", "Cinematic Videos", "Brand Advertisements", "Event Highlights", "Commercial Videos"].map((project) => <span key={project}>{project}</span>)}</div>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Education &amp; Qualifications</h3>
+                  <ul className="team-profile-list"><li>B.Sc. in Catering and Hotel Administration.</li><li>Diploma in Video Editing – Pixel School of Media.</li></ul>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Responsibilities at ADNOV</h3>
+                  <ul className="team-profile-list"><li>Editing client videos.</li><li>Creating cinematic wedding films.</li><li>Editing promotional and commercial content.</li><li>Colour grading and final video finishing.</li></ul>
+                </section>
+                <section className="team-profile-section">
+                  <h3>Social Links</h3>
+                  <div className="team-profile-socials"><a href="https://www.instagram.com/ft_fin/" target="_blank" rel="noopener noreferrer">Instagram (@ft_fin) <ExternalLink size={15} /></a></div>
                 </section>
               </div> : <div className="team-profile-body team-profile-basic"><section className="team-profile-section"><h3>ADNOV Team</h3><p>{selectedMember.role}</p></section></div>}
             </article>
