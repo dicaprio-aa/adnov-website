@@ -1,6 +1,6 @@
 // ADNOV Master Application Component - Light Sky & Cyan Redesign
 
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -14,41 +14,14 @@ import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 import WhatsAppButton from "./components/WhatsAppButton";
 import AdminDashboard from "./components/AdminDashboard";
-import IntroAnimation from "./components/IntroAnimation";
 import "./App.css";
 
 export default function App() {
   const [selectedServiceForEnquiry, setSelectedServiceForEnquiry] = useState("");
   const isAdminRoute = window.location.pathname === "/admin" || window.location.pathname.startsWith("/admin/");
-  const [showIntro, setShowIntro] = useState(() => {
-    if (isAdminRoute) return false;
-    try {
-      return sessionStorage.getItem("adnov-intro-complete") !== "true";
-    } catch {
-      return true;
-    }
-  });
-
-  const completeIntro = useCallback(() => {
-    try {
-      sessionStorage.setItem("adnov-intro-complete", "true");
-    } catch {
-      // The animation can still complete when storage is unavailable.
-    }
-    setShowIntro(false);
-  }, []);
-
-  useEffect(() => {
-    document.body.classList.toggle("adnov-intro-active", showIntro);
-    return () => document.body.classList.remove("adnov-intro-active");
-  }, [showIntro]);
 
   if (isAdminRoute) {
     return <AdminDashboard />;
-  }
-
-  if (showIntro) {
-    return <IntroAnimation onComplete={completeIntro} />;
   }
 
   const scrollToContact = (serviceName = "") => {

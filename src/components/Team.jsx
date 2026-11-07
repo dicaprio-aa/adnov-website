@@ -41,8 +41,17 @@ export default function Team({ onWorkWithTeam }) {
 
             return (
             <article key={member.id} className="team-card-light">
-              <div className="team-avatar-wrapper-light" aria-label={`${member.name} profile placeholder`}>
-                <div className="team-avatar-light">{initials}</div>
+              <div className={`team-avatar-wrapper-light${member.image ? " has-photo" : ""}`}>
+                {member.image ? (
+                  <img
+                    className="team-photo-light"
+                    src={member.image}
+                    alt={`${member.name}, ${member.role}`}
+                    style={{ objectPosition: member.imagePosition }}
+                  />
+                ) : (
+                  <div className="team-avatar-light" aria-hidden="true">{initials}</div>
+                )}
               </div>
 
               <div className="team-content-light">
