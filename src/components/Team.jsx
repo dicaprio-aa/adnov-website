@@ -10,18 +10,16 @@ import {
 } from "./SocialIcons";
 
 export default function Team({ onWorkWithTeam }) {
-  const [isAshiqProfileOpen, setIsAshiqProfileOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
 
   useEffect(() => {
-    if (!isAshiqProfileOpen) return undefined;
+    if (!selectedMember) return undefined;
     const closeOnEscape = (event) => {
-      if (event.key === "Escape") setIsAshiqProfileOpen(false);
+      if (event.key === "Escape") setSelectedMember(null);
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [isAshiqProfileOpen]);
-
-  const openAshiqProfile = () => setIsAshiqProfileOpen(true);
+  }, [selectedMember]);
 
   return (
     <section className="team-section-light" id="team">
@@ -56,18 +54,18 @@ export default function Team({ onWorkWithTeam }) {
             return (
             <article
               key={member.id}
-              className={`team-card-light${member.id === "member-2" ? " team-card-clickable" : ""}`}
-              onClick={member.id === "member-2" ? openAshiqProfile : undefined}
-              onKeyDown={member.id === "member-2" ? (event) => {
+              className="team-card-light team-card-clickable"
+              onClick={() => setSelectedMember(member)}
+              onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") {
                   event.preventDefault();
-                  openAshiqProfile();
+                  setSelectedMember(member);
                 }
-              } : undefined}
-              role={member.id === "member-2" ? "button" : undefined}
-              tabIndex={member.id === "member-2" ? 0 : undefined}
-              aria-haspopup={member.id === "member-2" ? "dialog" : undefined}
-              aria-label={member.id === "member-2" ? `View ${member.name}'s profile` : undefined}
+              }}
+              role="button"
+              tabIndex={0}
+              aria-haspopup="dialog"
+              aria-label={`View ${member.name}'s profile`}
             >
               <div className={`team-avatar-wrapper-light${member.image ? " has-photo" : ""}`}>
                 {member.image ? (
@@ -147,29 +145,29 @@ export default function Team({ onWorkWithTeam }) {
           })}
         </div>
 
-        {isAshiqProfileOpen && (
+        {selectedMember && (
           <div
             className="team-profile-backdrop"
             role="dialog"
             aria-modal="true"
             aria-labelledby="ashiq-profile-title"
             onMouseDown={(event) => {
-              if (event.target === event.currentTarget) setIsAshiqProfileOpen(false);
+              if (event.target === event.currentTarget) setSelectedMember(null);
             }}
           >
             <article className="team-profile-modal">
-              <button className="team-profile-close" type="button" onClick={() => setIsAshiqProfileOpen(false)} aria-label="Close Ashiq's profile">
+              <button className="team-profile-close" type="button" onClick={() => setSelectedMember(null)} aria-label={`Close ${selectedMember.name}'s profile`}>
                 <X size={21} />
               </button>
               <header className="team-profile-head">
-                <img src="/ashiq.png" alt="Ashiq S" className="team-profile-photo" />
+                <img src={selectedMember.image} alt={selectedMember.name} className="team-profile-photo" style={{ objectPosition: selectedMember.imagePosition || "center 20%" }} />
                 <div className="team-profile-heading">
                   <span className="team-profile-eyebrow">THE MINDS BEHIND ADNOV</span>
-                  <h2 id="ashiq-profile-title">ASHIQ S</h2>
-                  <p>Graphic Designer &amp; Web Developer</p>
+                  <h2 id="ashiq-profile-title">{selectedMember.name}</h2>
+                  <p>{selectedMember.role}</p>
                 </div>
               </header>
-              <div className="team-profile-body">
+              {selectedMember.id === "member-2" ? <div className="team-profile-body">
                 <section className="team-profile-section team-profile-about">
                   <h3>About</h3>
                   <p>Ashiq S is a creative designer and web developer with an interest in technology, digital experiences and visual communication. He combines creativity with technical skills to build engaging digital solutions, design impactful graphics and develop modern websites. He is currently pursuing a BTech in Computer Science and Engineering with Data Science at UKF College of Engineering &amp; Technology. He is also actively involved in IEEE student activities and creative projects.</p>
@@ -206,7 +204,7 @@ export default function Team({ onWorkWithTeam }) {
                     <a href="https://www.linkedin.com/in/ashiq-s-0056a6239/" target="_blank" rel="noopener noreferrer">LinkedIn <ExternalLink size={15} /></a>
                   </div>
                 </section>
-              </div>
+              </div> : <div className="team-profile-body team-profile-basic"><section className="team-profile-section"><h3>ADNOV Team</h3><p>{selectedMember.role}</p></section></div>}
             </article>
           </div>
         )}
