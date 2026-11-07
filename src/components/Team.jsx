@@ -234,10 +234,6 @@ export default function Team({ onWorkWithTeam }) {
                   <h3>Responsibilities at ADNOV</h3>
                   <ul className="team-profile-list"><li>Editing client videos.</li><li>Creating cinematic wedding films.</li><li>Editing promotional and commercial content.</li><li>Colour grading and final video finishing.</li></ul>
                 </section>
-                <section className="team-profile-section">
-                  <h3>Social Links</h3>
-                  <div className="team-profile-socials"><a href="https://www.instagram.com/ft_fin/" target="_blank" rel="noopener noreferrer">Instagram (@ft_fin) <ExternalLink size={15} /></a></div>
-                </section>
               </div> : <div className="team-profile-body team-profile-basic"><section className="team-profile-section"><h3>ADNOV Team</h3><p>{selectedMember.role}</p></section></div>}
             </article>
           </div>
