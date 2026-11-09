@@ -14,6 +14,8 @@ import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 import WhatsAppButton from "./components/WhatsAppButton";
 import AdminDashboard from "./components/AdminDashboard";
+import MaintenanceMode from "./components/MaintenanceMode";
+import { MAINTENANCE_MODE } from "./config/maintenance";
 import "./App.css";
 
 export default function App() {
@@ -22,6 +24,10 @@ export default function App() {
 
   if (isAdminRoute) {
     return <AdminDashboard />;
+  }
+
+  if (MAINTENANCE_MODE) {
+    return <MaintenanceMode />;
   }
 
   const scrollToContact = (serviceName = "") => {
