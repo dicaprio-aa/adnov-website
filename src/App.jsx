@@ -16,6 +16,7 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import AdminDashboard from "./components/AdminDashboard";
 import MaintenanceMode from "./components/MaintenanceMode";
 import { MAINTENANCE_MODE } from "./config/maintenance";
+import { SHOW_OUR_TEAM } from "./config/maintenance";
 import "./App.css";
 
 export default function App() {
@@ -88,9 +89,9 @@ export default function App() {
         />
 
         {/* F. Meet Our Team */}
-        <Team
-          onWorkWithTeam={() => scrollToContact()}
-        />
+        {SHOW_OUR_TEAM && (
+          <Team onWorkWithTeam={() => scrollToContact()} />
+        )}
 
         {/* G. Testimonials */}
         <Testimonials />
